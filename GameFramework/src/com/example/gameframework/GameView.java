@@ -81,6 +81,6 @@ public class GameView extends SurfaceView implements Callback{
 		//힌트 : drawText와 위에 선언된 mPaint
 		
 		canvas.drawText("DeletaTime : "+mRenderingThread.deltaTime, 100, 100, mPaint);
-		canvas.drawText("FPS : "+ 1000/mRenderingThread.deltaTime, 100, 200, mPaint);
+		canvas.drawText("FPS : "+ 1000f/mRenderingThread.deltaTime, 100, 200, mPaint);
 	}
 }
