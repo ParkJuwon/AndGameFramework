@@ -42,6 +42,8 @@ public class RenderingThread extends Thread {
 			
 			deltaTime = System.currentTimeMillis() - currTime;
 			
+			
+			
 			//로그를 보기
 			//Log.d("real_p", "deltaTime : "+deltaTime);
 		}
