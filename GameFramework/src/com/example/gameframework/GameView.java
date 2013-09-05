@@ -9,8 +9,8 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceHolder.Callback;
 import android.view.SurfaceView;
 
-//SurfaceView »ó¼Ó : ÇÊ¸§
-//Callback ±¸Çö : ÇÊ¸§ÀÇ »óÅÂ°¡ ¹Ù²ğ ¶§ È£ÃâµÇ´Â ÀÎÅÍÆäÀÌ½º , 3°¡ÁöÀÇ ÇÊ¸§ »óÅÂ¸¦ Á¤ÀÇ
+//SurfaceView ìƒì† : í•„ë¦„
+//Callback êµ¬í˜„ : í•„ë¦„ì˜ ìƒíƒœê°€ ë°”ë€” ë•Œ í˜¸ì¶œë˜ëŠ” ì¸í„°í˜ì´ìŠ¤ , 3ê°€ì§€ì˜ í•„ë¦„ ìƒíƒœë¥¼ ì •ì˜
 /**
  * @author user
  *
@@ -29,19 +29,19 @@ public class GameView extends SurfaceView implements Callback{
 	public GameView(Context context) {
 		super(context);
 		
-		//1. ÇÊ¸§°ú ¿¬ÇÊÀ» ¸¸µé¾î¼­ ¿¡´Ï¸ŞÀÌ¼Ç ÀÛ°¡¸¦ °í¿ë(»ı¼º) ÇØ¼­ ³Ñ°ÜÁÜ
+		//1. í•„ë¦„ê³¼ ì—°í•„ì„ ë§Œë“¤ì–´ì„œ ì—ë‹ˆë©”ì´ì…˜ ì‘ê°€ë¥¼ ê³ ìš©(ìƒì„±) í•´ì„œ ë„˜ê²¨ì¤Œ
 		SurfaceHolder mHolder = getHolder();
-		mHolder.addCallback(this); //ÇöÁ¦ Äİ¹éÀ» add
+		mHolder.addCallback(this); //í˜„ì œ ì½œë°±ì„ add
 		mRenderingThread = new RenderingThread(this, mHolder);
 	
 		mPaint = new Paint();
 		mPaint.setColor(Color.LTGRAY);
 	}
 
-	// ÇÊ¸§À» Ä«¸Ş¶ó¿¡ ³¢¿î »óÅÂ
+	// í•„ë¦„ì„ ì¹´ë©”ë¼ì— ë¼ìš´ ìƒíƒœ
 	@Override
 	public void surfaceCreated(SurfaceHolder holder) {
-		//2. ¿¡´Ï¸ŞÀÌ¼Ç ÀÛ°¡¿¡°Ô ÀÏÀ» ½ÃÄÑ¾ß µÊ.
+		//2. ì—ë‹ˆë©”ì´ì…˜ ì‘ê°€ì—ê²Œ ì¼ì„ ì‹œì¼œì•¼ ë¨.
 		mRenderingThread.start();
 		
 	}
@@ -52,7 +52,7 @@ public class GameView extends SurfaceView implements Callback{
 		
 	}
 
-	//5. ¾Ö´Ï¸ŞÀÌ¼Ç ÀÛ°¡¸¦ °í¿ë ÇØÁ¦(¾²·¹µå Á¤Áö)
+	//5. ì• ë‹ˆë©”ì´ì…˜ ì‘ê°€ë¥¼ ê³ ìš© í•´ì œ(ì“°ë ˆë“œ ì •ì§€)
 	@Override
 	public void surfaceDestroyed(SurfaceHolder holder) {
 		mRenderingThread.setRunning(false);
@@ -62,24 +62,25 @@ public class GameView extends SurfaceView implements Callback{
 	
 	
 	/**
-	 * °ÔÀÓ ÇÁ·¹ÀÓ ¿öÅ©°¡ ¿Ï¼ºÀÌ µÇ¸é update() ¿Í present() ¸Ş¼Òµå¿¡ ´ëÇØ
-	 * °³¹ßÀ» ÇÏ¸é µÈ´Ù. 
+	 * ê²Œì„ í”„ë ˆì„ ì›Œí¬ê°€ ì™„ì„±ì´ ë˜ë©´ update() ì™€ present() ë©”ì†Œë“œì— ëŒ€í•´
+	 * ê°œë°œì„ í•˜ë©´ ëœë‹¤. 
 	 */
-	//3. ÇÊ¸§ »óÅÂ¸¦ update
+	//3. í•„ë¦„ ìƒíƒœë¥¼ update
 	public void update(){
 		
 	}
 	
-	//4. ÇÊ¸§¿¡ ±×¸² ±×¸®±â
+	//4. í•„ë¦„ì— ê·¸ë¦¼ ê·¸ë¦¬ê¸°
 	public void present(Canvas canvas){
-		//¹ÙÅÁ»öÀ» ÆÄ¶õ»öÀ¸·Î Ä¥ÇÏ±â
+		//ë°”íƒ•ìƒ‰ì„ íŒŒë€ìƒ‰ìœ¼ë¡œ ì¹ í•˜ê¸°
 		canvas.drawColor(Color.BLUE);
-		//È¸»ö ¿ø ±×¸®±â
+		//íšŒìƒ‰ ì› ê·¸ë¦¬ê¸°
 		//canvas.drawCircle(200, 200, 100, mPaint);
 		
-		//Todo ¼÷Á¦ : deltaTime °ú  FPS Âï±â 100,100 deltaTime, 100,200 ¿¡ FPS Âï±â
-		//ÈùÆ® : drawText¿Í À§¿¡ ¼±¾ğµÈ mPaint
+		//Todo ìˆ™ì œ : deltaTime ê³¼  FPS ì°ê¸° 100,100 deltaTime, 100,200 ì— FPS ì°ê¸°
+		//íŒíŠ¸ : drawTextì™€ ìœ„ì— ì„ ì–¸ëœ mPaint
 		
 		canvas.drawText("DeletaTime : "+mRenderingThread.deltaTime, 100, 100, mPaint);
+		canvas.drawText("FPS : "+ 1000/mRenderingThread.deltaTime, 100, 200, mPaint);
 	}
 }

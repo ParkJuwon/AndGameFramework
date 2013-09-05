@@ -16,7 +16,7 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_main);
-       // setContentView(new MyView(this)); //custom view¸¦ µî·Ï
+       // setContentView(new MyView(this)); //custom viewë¥¼ ë“±ë¡
         setContentView(new GameView(this));
     }
 
@@ -33,8 +33,8 @@ public class MainActivity extends Activity {
 }
 
 
-//custom view »ı¼º
-//View : ÇÑÀå Â¥¸® ±×¸²
+//custom view ìƒì„±
+//View : í•œì¥ ì§œë¦¬ ê·¸ë¦¼
 class MyView extends View{
 
 	public MyView(Context context) {
@@ -44,10 +44,10 @@ class MyView extends View{
 
 	@Override
 	protected void onDraw(Canvas canvas) {
-		//¹ÙÅÁ»öÀ» ÆÄ¶õ»öÀ¸·Î Ä¥ÇÏ±â
+		//ë°”íƒ•ìƒ‰ì„ íŒŒë€ìƒ‰ìœ¼ë¡œ ì¹ í•˜ê¸°
 		canvas.drawColor(Color.BLUE);
-		//È¸»ö ¿ø ±×¸®±â
-		Paint paint = new Paint();  // º×
+		//íšŒìƒ‰ ì› ê·¸ë¦¬ê¸°
+		Paint paint = new Paint();  // ë¶“
 		paint.setColor(Color.LTGRAY);
 		canvas.drawCircle(200, 200, 100, paint);
 		

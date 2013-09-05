@@ -6,7 +6,7 @@ import android.view.SurfaceHolder;
 
 public class RenderingThread extends Thread {
 
-	private volatile boolean mIsRunning = true; // thread »ó º¯¼ö µ¿±âÈ­¸¦ À§ÇØ volatileÀ» ¼±¾ğ
+	private volatile boolean mIsRunning = true; // thread ìƒ ë³€ìˆ˜ ë™ê¸°í™”ë¥¼ ìœ„í•´ volatileì„ ì„ ì–¸
 	private GameView mGameView;
 	private SurfaceHolder mSurfaceHolder;
 	
@@ -22,21 +22,23 @@ public class RenderingThread extends Thread {
 	@Override
 	public void run() {
 		
-		// ÇÑ¹øÀÇ ·çÇÁ°¡ ¿¡´Ï¸ŞÀÌ¼Ç ÀÛ°¡°¡ ÇÑÀåÀÇ ±×¸²À» ±×¸°´Ù. => deltaTime
-		//1. »óÅÂ ¾÷µ¥ÀÌÆ® & ±×¸®±â
-		Canvas canvas = null; //µµÈ­Áö »ı¼º
+		// í•œë²ˆì˜ ë£¨í”„ê°€ ì—ë‹ˆë©”ì´ì…˜ ì‘ê°€ê°€ í•œì¥ì˜ ê·¸ë¦¼ì„ ê·¸ë¦°ë‹¤. => deltaTime
+		//1. ìƒíƒœ ì—…ë°ì´íŠ¸ & ê·¸ë¦¬ê¸°
+		Canvas canvas = null; //ë„í™”ì§€ ìƒì„±
 		long currTime = 0;
 		while(mIsRunning){
 			currTime = System.currentTimeMillis();
 			
-			//µµÈ­Áö¸¦ Á¤Áö½ÃÅ°°í ±×¸² ±×¸®±â
+currTime = System.currentTimeMillis();
+			
+			//ë„í™”ì§€ë¥¼ ì •ì§€ì‹œí‚¤ê³  ê·¸ë¦¼ ê·¸ë¦¬ê¸°
 			canvas = mSurfaceHolder.lockCanvas();
 			//update
 			mGameView.update();
 			
 			//present
 			mGameView.present(canvas);
-			//µµÈ­Áö¸¦ ¶¼³»¼­ ÇÊ¸§¿¡ °®´Ù ºÙÀÌ±â
+			//ë„í™”ì§€ë¥¼ ë–¼ë‚´ì„œ í•„ë¦„ì— ê°–ë‹¤ ë¶™ì´ê¸°
 			mSurfaceHolder.unlockCanvasAndPost(canvas);
 			
 			
@@ -44,7 +46,7 @@ public class RenderingThread extends Thread {
 			
 			
 			
-			//·Î±×¸¦ º¸±â
+			//ë¡œê·¸ë¥¼ ë³´ê¸°
 			//Log.d("real_p", "deltaTime : "+deltaTime);
 		}
 	}
