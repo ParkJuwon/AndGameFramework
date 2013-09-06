@@ -34,7 +34,10 @@ public class GameView extends SurfaceView implements Callback{
 		mHolder.addCallback(this); //현제 콜백을 add
 		mRenderingThread = new RenderingThread(this, mHolder);
 	
+		
+		//페인트 색 정의
 		mPaint = new Paint();
+		mPaint.setTextSize(30.0f);
 		mPaint.setColor(Color.LTGRAY);
 	}
 
@@ -57,6 +60,15 @@ public class GameView extends SurfaceView implements Callback{
 	public void surfaceDestroyed(SurfaceHolder holder) {
 		mRenderingThread.setRunning(false);
 		
+		boolean retry = true;
+		while (retry) {
+			try {
+				mRenderingThread.join(); // Thread 정지
+				retry = false;
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	
@@ -79,8 +91,15 @@ public class GameView extends SurfaceView implements Callback{
 		
 		//Todo 숙제 : deltaTime 과  FPS 찍기 100,100 deltaTime, 100,200 에 FPS 찍기
 		//힌트 : drawText와 위에 선언된 mPaint
+		long deltaTime = AppDirector.getInstance().getmDeltaTime();
+		try {
+			canvas.drawText("DeletaTime : " + deltaTime, 100f, 100f, mPaint);
+			canvas.drawText("FPS : " + 1000f / deltaTime, 100f, 200f, mPaint);
+		} catch (ArithmeticException e) {
+
+		} catch (Exception e) {
+			
+		}
 		
-		canvas.drawText("DeletaTime : "+mRenderingThread.deltaTime, 100, 100, mPaint);
-		canvas.drawText("FPS : "+ 1000f/mRenderingThread.deltaTime, 100, 200, mPaint);
 	}
 }

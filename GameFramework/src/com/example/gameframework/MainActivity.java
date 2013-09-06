@@ -6,18 +6,26 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 
 public class MainActivity extends Activity {
 
+	AppDirector mAppDirector;
+	
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_main);
-       // setContentView(new MyView(this)); //custom view를 등록
-        setContentView(new GameView(this));
+       // setContentView(new MyView(this));  //한장의 그림과 같음
+       
+        //custom view를 등록
+        setContentView(new GameView(this)); //영화와 같음
+        
+        Log.d("AppDirector Check","Appdirector 메모리 주소 값 : "+AppDirector.getInstance());
+        Log.d("AppDirector Check","Appdirector 메모리 주소 값 : "+AppDirector.getInstance());
     }
 
 
@@ -52,6 +60,17 @@ class MyView extends View{
 		canvas.drawCircle(200, 200, 100, paint);
 		
 		super.onDraw(canvas);
+	}
+	
+}
+
+
+//싱글턴 패턴과 멀티쓰레드 문제
+class A extends Thread{
+
+	@Override
+	public void run() {
+		
 	}
 	
 }
