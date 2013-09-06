@@ -1,6 +1,9 @@
 package com.example.gameframework;
 
+import android.graphics.Bitmap;
+import android.graphics.Bitmap.Config;
 import android.graphics.Canvas;
+import android.graphics.Rect;
 import android.util.Log;
 import android.view.SurfaceHolder;
 
@@ -12,10 +15,22 @@ public class RenderingThread extends Thread {
 	
 	private long deltaTime =1;
 	
+	//작업 공간 정의
+	private Canvas virtualCanvas; //가상 작업공간
+	private Rect dstRect; // 실제 디바이스
+	private Bitmap mBitmap;
+	
 	public RenderingThread(GameView gameView, SurfaceHolder mHolder) {
 		//필름과 연필를 받음
 		mGameView = gameView;
 		mSurfaceHolder = mHolder;
+		
+		//작업 공간 할당
+		mBitmap = Bitmap.createBitmap(1080, 1920, Config.ARGB_8888);
+		//숙제 : 하드코딩 제거, AppDirector로 정의하고 가져오도록
+		virtualCanvas = new Canvas();
+		virtualCanvas.setBitmap(mBitmap);
+		dstRect = new Rect();
 	}
 
 
@@ -38,14 +53,24 @@ public class RenderingThread extends Thread {
 				mGameView.update();
 				
 				//present
-				mGameView.present(canvas);
+				//mGameView.present(canvas);
 				
-				//도화지를 떼내서 필름에 갖다 붙이기
-				mSurfaceHolder.unlockCanvasAndPost(canvas);
+				//작업공간을 가상의 작업 공간으로 변경
+				mGameView.present(virtualCanvas); 
+				
 			}catch(Exception e){
 
 			}finally{
+				//도화지를 떼내서 필름에 갖다 붙이기
+				mSurfaceHolder.unlockCanvasAndPost(canvas);
 			
+				//dstRect에 실제 디바이스 크기를 할당
+				canvas.getClipBounds(dstRect); 
+				//작업공간을 실제 디바이스 크기로 늘리기
+				canvas.drawBitmap(mBitmap, null, dstRect, null);
+				
+				//숙제 : dstRect크기 Log.d로 찍어보기
+				Log.d("dstRect Sizte","dstRect Sizte = "+dstRect.width()+" * "+dstRect.height());
 			}
 			
 			deltaTime = System.currentTimeMillis() - currTime;
